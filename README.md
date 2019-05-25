@@ -1,9 +1,11 @@
 # Moving-average-filter
 Average filter based on FIFO buffer
-##Library files [link](https://github.com/binarymaker/Moving-average-filter/tree/master/sw-moving-average/User-Library/moving-average-library)
+
+Library files [link](https://github.com/binarymaker/Moving-average-filter/tree/master/sw-moving-average/User-Library/moving-average-library)
  
 # Concept block 
 
+```
                              input
                                +
                                |
@@ -28,6 +30,8 @@ Average filter based on FIFO buffer
                                v
                             filtered
                              result
+                             
+```
                              
 
  
