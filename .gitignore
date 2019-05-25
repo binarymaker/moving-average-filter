@@ -1,0 +1,9 @@
+
+\.vscode/
+
+**/MDK-ARM/*
+!**/MDK-ARM/*.uvprojx
+!**/MDK-ARM/*.s
+
+
+
