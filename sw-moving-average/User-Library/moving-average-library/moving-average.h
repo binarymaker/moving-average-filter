@@ -27,6 +27,34 @@
  * @author binary maker <https://github.com/binarymaker>
  * @brief Average filter based on FIFO buffer
  * @date 2019-05-25
+ *
+ */
+
+/* 
+                             input
+                               +
+                               |
+                               v
+            +------------------+--------------------+
+  index +-->+                 DEMUX                 |
+            +----+------+------+----------------+---+
+                 |      |      |                |
+              +--+-+ +--+-+ +--+-+           +--+-+
+              | B0 | | B1 | | B3 | . . . . . | Bn |   <- buffer
+              +-+--+ +-+--+ +-+--+           +-+--+      n is size-1
+                |      |      |                |
+            +---+------+------+----------------+----+
+            |              ACCUMULATOR              |
+            +------------------+--------------------+
+                               | <---------------------- sum
+                               v
+                      +--------+--------+
+                      | divided by fill |
+                      +--------+--------+
+                               |
+                               v
+                            filtered
+                             result
  */
 
 #include "stdint.h"
