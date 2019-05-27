@@ -79,7 +79,7 @@ scale(int32_t value, int32_t in_min, int32_t in_max,
  * @return int32_t [out] Limited output value
  */
 int32_t
-constrain(int32_t *value, int32_t min, int32_t max);
+constrain(int32_t value, int32_t min, int32_t max);
 
 /**
  * @brief simple filter for smooth sequence data

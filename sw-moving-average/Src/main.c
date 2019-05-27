@@ -124,8 +124,8 @@ int main(void)
   MX_ADC_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  moving_average_create(&adc_filter, 10);
-  moving_average_create(&adc_filter_2, 30);
+  moving_average_create(&adc_filter, 10, 100);
+  moving_average_create(&adc_filter_2, 30, 100);
   
   /* USER CODE END 2 */
 
@@ -133,9 +133,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if (HAL_GetTick() - adc_capture_time > 100)
-    {
-      /* ADC convertion ------------------------*/
+          /* ADC convertion ------------------------*/
       HAL_ADC_Start_DMA(&hadc, (uint32_t*)&adc_value, 1);
       HAL_DMA_PollForTransfer(&hdma_adc, HAL_DMA_FULL_TRANSFER, 10);
 
@@ -145,7 +143,9 @@ int main(void)
       /* Filter --------------------------------*/
       moving_average_filter(&adc_filter, adc_value);
       moving_average_filter(&adc_filter_2, adc_value);
-      
+    
+    if (HAL_GetTick() - adc_capture_time > 50)
+    {
       /* print filter values -------------------*/
       printf("$%d %d %d;", adc_value, adc_filter.filtered, adc_filter_2.filtered);
 

@@ -1,13 +1,17 @@
 # Moving-average-filter
 Average filter based on FIFO buffer
 
-Library files [link](https://github.com/binarymaker/Moving-average-filter/tree/master/sw-moving-average/User-Library/moving-average-library)
+[Library files](https://github.com/binarymaker/Moving-average-filter/tree/master/sw-moving-average/User-Library/moving-average-library)
  
 # Concept block 
 
 ```
                              input
                                +
+                               |
+                            +-----+ 
+                            | S/H | <------------------ sampling time
+                            +-----+ 
                                |
                                v
             +------------------+--------------------+
@@ -17,14 +21,14 @@ Library files [link](https://github.com/binarymaker/Moving-average-filter/tree/m
               +--+-+ +--+-+ +--+-+           +--+-+
               | B0 | | B1 | | B3 | . . . . . | Bn |   <- buffer
               +-+--+ +-+--+ +-+--+           +-+--+      n is size-1
-                |      |      |                |         
+                |      |      |                |
             +---+------+------+----------------+----+
             |              ACCUMULATOR              |
             +------------------+--------------------+
                                | <---------------------- sum
                                v
                       +--------+--------+
-                      | divided by fill | 
+                      | divided by fill |
                       +--------+--------+
                                |
                                v

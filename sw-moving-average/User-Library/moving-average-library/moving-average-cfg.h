@@ -22,5 +22,8 @@
 #ifndef BM_e1ef776c_7abb_11e9_ab2f_c8ff28b6c6d9
 #define BM_e1ef776c_7abb_11e9_ab2f_c8ff28b6c6d9
 
+#ifndef TICK_TIMER
+# define TICK_TIMER HAL_GetTick()
+#endif
 
 #endif // BM_e1ef776c_7abb_11e9_ab2f_c8ff28b6c6d9

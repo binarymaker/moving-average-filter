@@ -20,11 +20,15 @@
  */
 
 #include "moving-average.h"
+#include "moving-average-cfg.h"
 #include <stdlib.h>
+
+#include "stm32f0xx_hal.h"
 
 void
 moving_average_create(movingAverage_t *context,
-                      uint16_t filter_size)
+                      uint16_t filter_size,
+                      uint16_t sample_time)
 {
   free(context->buffer);
 
@@ -34,32 +38,39 @@ moving_average_create(movingAverage_t *context,
   context->sum = 0;
   context->fill = 0;
   context->filtered = 0;
+  context->sample_time = sample_time;
+  context->last_time = 0;
 }
 
 void
 moving_average_filter(movingAverage_t *context,
                       int16_t filter_input)
 {
-  if (context->fill)
+  if ((TICK_TIMER - context->last_time) > context->sample_time)
   {
-    context->sum -= context->buffer[context->index];
+    context->last_time = TICK_TIMER;
+
+    if (context->fill)
+    {
+      context->sum -= context->buffer[context->index];
+    }
+
+    context->buffer[context->index] = filter_input;
+    context->sum += context->buffer[context->index];
+
+    context->index++;
+    if (context->index >= context->size)
+    {
+      context->index = 0;
+    }
+
+    if (context->fill < context->size)
+    {
+      context->fill++;
+    }
+
+    context->filtered = (int16_t)(context->sum / context->fill);
   }
-
-  context->buffer[context->index] = filter_input;
-  context->sum += context->buffer[context->index];
-
-  context->index++;
-  if (context->index >= context->size)
-  {
-    context->index = 0;
-  }
-
-  if (context->fill < context->size)
-  {
-    context->fill++;
-  }
-
-  context->filtered = (int16_t)(context->sum / context->fill);
 }
 
 

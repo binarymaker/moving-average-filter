@@ -34,6 +34,10 @@
                              input
                                +
                                |
+                            +-----+ 
+                            | S/H | <------------------ Sampling time
+                            +-----+ 
+                               |
                                v
             +------------------+--------------------+
   index +-->+                 DEMUX                 |
@@ -61,12 +65,14 @@
 
 typedef struct movingAverage_s
 {
-  int16_t *buffer;  /**< Data buffer pointer */
-  uint16_t size;    /**< Size of filter buffer */
-  uint16_t index;   /**< Current location in buffer */
-  uint16_t fill;    /**< Buffer filled level */
-  int32_t sum;      /**< Cumulative value of buffer */
-  int16_t filtered; /**< Filtered output */
+  int16_t *buffer;      /**< Data buffer pointer */
+  uint16_t size;        /**< Size of filter buffer */
+  uint16_t index;       /**< Current location in buffer */
+  uint16_t fill;        /**< Buffer filled level */
+  int32_t sum;          /**< Cumulative value of buffer */
+  int16_t filtered;     /**< Filtered output */
+  uint16_t sample_time; /**< data sampling time interval */
+  uint32_t last_time;   /**< last sampled time */
 } movingAverage_t;
 
 /**
@@ -74,8 +80,9 @@ typedef struct movingAverage_s
  * 
  * @param context [in] instance of filter object
  * @param filter_size [in] size of filter buffer
+ * @param sample_time [in] filter sampling time in ms 
  */
-void moving_average_create(movingAverage_t *context, uint16_t filter_size);
+void moving_average_create(movingAverage_t *context, uint16_t filter_size, uint16_t sample_time);
 
 /**
  * @brief filter process function
