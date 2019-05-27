@@ -82,13 +82,7 @@ static void MX_DMA_Init(void);
 static void MX_ADC_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-#ifdef __GNUC__
-/* With GCC, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE * f)
-#endif /* __GNUC__ */
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -144,11 +138,12 @@ int main(void)
 
       /* Random noise injected to input --------*/
       adc_value += (rand() / 10000000);
+      
       /* Filter --------------------------------*/
       moving_average_filter(&adc_filter, adc_value);
 
       /* print filter values -------------------*/
-      printf("$%d %d", adc_value, adc_filter.filtered);
+      printf("$%d %d;", adc_value, adc_filter.filtered);
 
       /* ADC capture time remain for next convertion*/
       adc_capture_time = HAL_GetTick();
