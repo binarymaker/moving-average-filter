@@ -44,7 +44,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "moving-average.h"
-#include <stdlib.h>
+#include "stdio-port-stm32.h"
+#include "utility.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -73,6 +74,7 @@ uint16_t adc_value;
 uint32_t adc_capture_time;
 
 movingAverage_t adc_filter;
+movingAverage_t adc_filter_2;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -123,7 +125,8 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   moving_average_create(&adc_filter, 10);
-
+  moving_average_create(&adc_filter_2, 30);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -137,13 +140,14 @@ int main(void)
       HAL_DMA_PollForTransfer(&hdma_adc, HAL_DMA_FULL_TRANSFER, 10);
 
       /* Random noise injected to input --------*/
-      adc_value += (rand() / 10000000);
+      adc_value += MAX(0, random(-50, 50));
       
       /* Filter --------------------------------*/
       moving_average_filter(&adc_filter, adc_value);
-
+      moving_average_filter(&adc_filter_2, adc_value);
+      
       /* print filter values -------------------*/
-      printf("$%d %d;", adc_value, adc_filter.filtered);
+      printf("$%d %d %d;", adc_value, adc_filter.filtered, adc_filter_2.filtered);
 
       /* ADC capture time remain for next convertion*/
       adc_capture_time = HAL_GetTick();

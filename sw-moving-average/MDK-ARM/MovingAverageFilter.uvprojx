@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F030x6</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32F0xx_HAL_Driver/Inc;../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F0xx/Include;../Drivers/CMSIS/Include;..\User-Library\moving-average-library;..\User-Library\stdio-port-stm32</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F0xx_HAL_Driver/Inc;../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F0xx/Include;../Drivers/CMSIS/Include;..\User-Library\moving-average-library;..\User-Library\stdio-port-stm32;..\User-Library\utililty</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -530,6 +530,16 @@
               <FileName>stdio-port-stm32.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User-Library\stdio-port-stm32\stdio-port-stm32.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utility</GroupName>
+          <Files>
+            <File>
+              <FileName>utility.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User-Library\utililty\utility.c</FilePath>
             </File>
           </Files>
         </Group>
