@@ -104,6 +104,9 @@ int main(void)
   moving_average_create(&avg_filter, 10, 100);
   moving_average_create(&avg_filter_2, 30, 100);
   moving_average_create(&avg_filter_3, 50, 100);
+  /* wait for 1 sample time */
+  HAL_Delay(100);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,7 +125,7 @@ int main(void)
     }
 
     /* Random noise injected to input --------*/
-    error_signal = signal + MAX(0, random(-50, 50));
+    error_signal = signal + MAX(0, random(-20, 20));
 
     /* Filter --------------------------------*/
     moving_average_filter(&avg_filter, error_signal);
