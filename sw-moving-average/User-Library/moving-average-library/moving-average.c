@@ -33,7 +33,7 @@ moving_average_create(movingAverage_t *context,
   free(context->buffer);
 
   context->size = filter_size;
-  context->buffer = (int16_t*)malloc(filter_size * sizeof(uint16_t));
+  context->buffer = (int16_t*)malloc(filter_size * sizeof(int16_t));
   context->index = 0;
   context->sum = 0;
   context->fill = 0;
