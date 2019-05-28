@@ -39,7 +39,7 @@ Average filter based on FIFO buffer
 
 # Code usage
 
-```
+```c
 /* Include library */
 #include "moving-average.h"
 
